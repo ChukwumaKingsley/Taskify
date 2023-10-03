@@ -4,6 +4,8 @@ import InputFeild from './components/InputFeild'
 
 function App() {
 
+  const [todo, setTodo] = useState<string>("");
+
   return (
     <div className='App'>
       <span className='heading'>Taskify</span>
@@ -12,4 +14,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
