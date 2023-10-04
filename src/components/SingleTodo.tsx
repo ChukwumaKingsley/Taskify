@@ -51,7 +51,7 @@ const SingleTodo = ({todo, todos, setTodos}: Props) => {
         }
         
         <div className='todos__icons'>
-            <span className="icon"
+        {!todo.isDone && <span className="icon"
                 onClick={() => {
                     if (!edit && !todo.isDone) {
                         setEdit(!edit);
@@ -60,7 +60,8 @@ const SingleTodo = ({todo, todos, setTodos}: Props) => {
             
             >
                 <AiFillEdit />
-            </span>
+            </span>}
+
             <span className="icon" onClick={()=>handleDelete(todo.id)}>
                 <AiFillDelete />
             </span>
