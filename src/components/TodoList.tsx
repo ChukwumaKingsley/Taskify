@@ -6,11 +6,13 @@ import "./styles.css"
 interface Props{
     todos: Todo[];
     setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+    activeTodos: Todo[];
+    setActiveTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
     completedTodos: Todo[];
     setCompletedTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
 }
 
-const TodoList: React.FC<Props> = ({ todos, setTodos, completedTodos, setCompletedTodos }) => {
+const TodoList: React.FC<Props> = ({ todos, setTodos, activeTodos, setActiveTodos, completedTodos, setCompletedTodos }) => {
   return (
     <div className="todo--lists">
         <Droppable droppableId="TodosList">
@@ -20,7 +22,7 @@ const TodoList: React.FC<Props> = ({ todos, setTodos, completedTodos, setComplet
                 ref={provided.innerRef}
                 {...provided.droppableProps} >
                     <h2 className="todos--tag">Active Todos</h2>
-                    {todos.filter(todo => !todo.isDone).map((todo, index) => (
+                    {activeTodos?.map((todo, index) => (
                         <SingleTodo
                         index={index}
                         todo={todo} 
@@ -40,13 +42,13 @@ const TodoList: React.FC<Props> = ({ todos, setTodos, completedTodos, setComplet
             ref={provided.innerRef}
             {...provided.droppableProps} >
                 <h2 className="todos--tag">Completed Todos</h2>
-                {todos.filter(todo => todo.isDone).map((todo, index) => (
+                {completedTodos?.map((todo, index) => (
                     <SingleTodo
                     index={index}
                     todo={todo} 
                     key={todo.id} 
-                    todos={completedTodos} 
-                    setTodos={setCompletedTodos}
+                    todos={todos} 
+                    setTodos={setTodos}
                     />
                 ))}
                 {provided.placeholder}
