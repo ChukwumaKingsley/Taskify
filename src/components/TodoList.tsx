@@ -14,9 +14,9 @@ const TodoList: React.FC<Props> = ({ todos, setTodos, completedTodos, setComplet
   return (
     <div className="todo--lists">
         <Droppable droppableId="TodosList">
-            {(provided) => (
+            {(provided, snapshot) => (
                 <div 
-                className="todos--active" 
+                className= {`todos--active  ${snapshot.isDraggingOver ? "dragactive" : ""}`}
                 ref={provided.innerRef}
                 {...provided.droppableProps} >
                     <h2 className="todos--tag">Active Todos</h2>
@@ -34,9 +34,9 @@ const TodoList: React.FC<Props> = ({ todos, setTodos, completedTodos, setComplet
             )}
         </Droppable>
         <Droppable droppableId="TodosComplete">
-            {(provided) => (
+            {(provided, snapshot) => (
             <div 
-            className="todos--completed" 
+            className={`todos--completed ${snapshot.isDraggingOver ? "dragcomplete" : ""}`} 
             ref={provided.innerRef}
             {...provided.droppableProps} >
                 <h2 className="todos--tag">Completed Todos</h2>
