@@ -8,13 +8,21 @@ import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 function App() {
 
   const [todo, setTodo] = useState<string>("");
-  const [todos, setTodos] = useState<Todo[]>([])
+  const [todos, setTodos] = useState<Todo[]>(() => {
+                const savedData = localStorage.getItem('my_todo_list');
+                return savedData ? JSON.parse(savedData) : [];
+              })
+
   const [activeTodos, setActiveTodos] = useState<Todo[]>([])
   const [completedTodos, setCompletedTodos] = useState<Todo[]>([])
 
   useEffect(() => {
-    setActiveTodos(todos.filter(todo => !todo.isDone))
-    setCompletedTodos(todos.filter(todo => todo.isDone))
+    if (todos) {
+
+      setActiveTodos(todos?.filter(todo => !todo.isDone))
+      setCompletedTodos(todos?.filter(todo => todo.isDone))
+      localStorage.setItem('my_todo_list', JSON.stringify(todos))
+    }
   }, [todos])
 
   const handleAdd = (e: React.FormEvent) => {
@@ -32,7 +40,6 @@ function App() {
 
   const onDragEnd = (result: DropResult) => {
     const { destination, source } = result;
-    console.log(result)
 
     if (!destination) {
       return;
@@ -63,9 +70,6 @@ function App() {
     setTodos([...active, ...complete])
   } 
 
-
-  console.log("todos>>", todos)
-  console.log("completed>>", completedTodos)
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
