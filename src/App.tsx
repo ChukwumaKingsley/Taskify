@@ -16,7 +16,6 @@ function App() {
     setActiveTodos(todos.filter(todo => !todo.isDone))
     setCompletedTodos(todos.filter(todo => todo.isDone))
   }, [todos])
-  
 
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();
